@@ -1,7 +1,10 @@
+# emacs-related
 /auto-save-list
 /.emacs.desktop
 /history
+.lsp-session*
 
+# packages
 /elpa
 /elpa-*
 /straight
