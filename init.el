@@ -1,28 +1,37 @@
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+;;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
 ;; and `package-pinned-packages`. Most users will not need or want to do this.
 ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(package-initialize)
-(custom-set-variables
+;;(package-initialize)
+;;(custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (company-coq pretty-mode proof-general yasnippet-snippets yasnippet company markdown-preview-mode lsp-mode rust-mode doom-modeline))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
-; Global
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "./straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(setq package-enable-at-startup nil)
+
+;; Global
+(straight-use-package 'doom-modeline)
+(straight-use-package 'yasnippet)
 (require 'doom-modeline)
 (doom-modeline-mode 1)
 
+(straight-use-package 'lsp-mode)
 (require 'lsp-mode)
 
 (when (display-graphic-p)
@@ -33,17 +42,29 @@
 
 (yas-reload-all)
 
+(straight-use-package 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 (add-hook 'prog-mode-hook #'yas-minor-mode)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 ;; Rust mode settings
 (add-to-list 'exec-path "~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin")
+(straight-use-package 'rust-mode)
 (require 'rust-mode)
 (setq rust-format-on-save t)
 (add-hook 'rust-mode-hook #'lsp)
 
 ;; Coq
+(straight-use-package 'proof-general)
+(straight-use-package 'company-coq)
+(straight-use-package 'pretty-mode)
 (add-hook 'coq-mode-hook #'company-coq-mode)
 (add-hook 'coq-mode-hook #'prettify-symbols-mode)
+
+;; fstar
+(straight-use-package 'fstar-mode)
+
+;; C
+
+;; C++
 

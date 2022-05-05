@@ -22,6 +22,8 @@
 - company-coq
 - pretty-mode
 
+# Fstar
+
 ## C
 
 TODO
