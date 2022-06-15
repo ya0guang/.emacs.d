@@ -1,3 +1,6 @@
+# IDE
+.vscode
+
 # emacs-related
 /auto-save-list
 /.emacs.desktop

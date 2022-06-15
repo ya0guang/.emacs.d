@@ -1,6 +1,0 @@
-make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/home/ya0guang/.emacs.d'
-make: Leaving directory '/home/ya0guang/.emacs.d'
- 
-make: *** No targets specified and no makefile found.  Stop.
-
