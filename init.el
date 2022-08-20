@@ -24,13 +24,18 @@
   (load bootstrap-file nil 'nomessage))
 
 (setq package-enable-at-startup nil)
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+
 
 ;; Global
 (straight-use-package 'doom-modeline)
 (straight-use-package 'yasnippet)
 (straight-use-package 'all-the-icons)
+(straight-use-package 'zenburn-theme)
 (require 'doom-modeline)
 (doom-modeline-mode 1)
+(electric-pair-mode 1)
+(load-theme 'zenburn t)
 
 (straight-use-package 'lsp-mode)
 (require 'lsp-mode)
