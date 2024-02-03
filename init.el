@@ -88,6 +88,14 @@
 (add-hook 'coq-mode-hook #'company-coq-mode)
 (add-hook 'coq-mode-hook #'prettify-symbols-mode)
 
+;; racket
+(straight-use-package 'racket-mode)
+(defun my-racket-mode-setup ()
+  (define-key racket-mode-map (kbd "C-c <return>") 'racket-run))
+
+(add-hook 'racket-mode-hook 'my-racket-mode-setup)
+
+
 ;; agda
 (setq auto-mode-alist
    (append
@@ -119,6 +127,7 @@
 
 (load-file (let ((coding-system-for-read 'utf-8))
              (shell-command-to-string "agda-mode locate")))
+(setq make-backup-files nil) ; stop creating ~ files
 
 (use-package ligature
   :load-path "./ligature.el/"
